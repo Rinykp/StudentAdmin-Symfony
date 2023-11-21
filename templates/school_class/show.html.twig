@@ -1,0 +1,29 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}SchoolClass{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">
+    <h1>SchoolClass</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ school_class.name }}</td>
+            </tr>
+{#            <tr>#}
+{#                <th>Division</th>#}
+{#                <td>{{ school_class.division }}</td>#}
+{#            </tr>#}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success"  href="{{ path('app_school_class_index') }}">Back to list</a>
+
+    <a class="btn btn-warning" href="{{ path('app_school_class_edit', {'id': school_class.id}) }}">Edit</a>
+
+    {{ include('school_class/_delete_form.html.twig') }}
+</div>
+{% endblock %}

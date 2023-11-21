@@ -1,0 +1,78 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Marks index{% endblock %}
+
+{% block content %}
+
+    <div class="col-sm-9">
+        <h1>Progress Report</h1>
+
+            <div class="container flex flex-wrap items-center justify-between mx-auto">
+        <div class="flex">
+            <div class="relative">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <form action="{{ path('app_progress') }}">
+                            <input type="text" class="forn-control"  style="width: 100%;  padding: 12px 20px; margin: 8px 0;
+                              display: inline-block;
+                             border: 1px solid #ccc;  border-radius: 4px;  box-sizing: border-box;"
+                                   id="search-navbar" name="q" value="{{ app.request.query.get('q') }}" placeholder="Search..." >
+                        </form>
+                    </div>
+                    <div class="col-sm-3">
+                        <p> <a class="btn btn-info"  onclick="return confirm('are u sure to download the csv?')" href="{{ path('app_progress_download_csv') }}" >Download CSV</a>
+                        </p><p> <a class="btn btn-danger"  onclick="return confirm('are u sure to download Pdf?')" href="{{ path('app_progress_download_pdf') }}" >Download PDF</a>
+                        </p>
+                         </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+        {% for msg in app.session.flashBag.get('success') %}
+            <div class="alert alert-success">
+                {{ msg }}
+            </div>
+        {% endfor %}
+        <hr>
+        {% for student in students %}
+            <h4 style="color:black;background-color: #5eb5e0; padding: 5px;text-align: center"><a style="font-size: 15px;" class="btn btn-link" href="{{ path('app_student_show', {'id': student.id}) }}">  {{ student.name }}</a></h4>
+            <a onclick="return confirm('are u sure to send the email?')" class="btn btn-success"  href="{{ path('app_progress_email', {'id': student.id}) }}">Send Progress Card</a>
+            <ul>
+                {% if student.marks is not null %}
+                <table class="table" style="background-color:#f3f3f3" >
+                    <thead style="background-color: #fefcfc">
+                    <tr>
+                        <th>Subjects</th>
+                        <th>Mark</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% set rowTotal = 0 %}
+                    {% for mark in student.marks %}
+
+                        {% set rowTotal = rowTotal + mark.marks %}
+
+                        <tr>
+                            <td>
+                                {% for subject in mark.subject %}
+                                {{ subject.name }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{  mark.marks }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td><b>Total Marks</b></td>
+                        <td style="color: #B0413E"><b>{{ rowTotal }}<b></b></td>
+                    </tr>
+                    </tfoot>
+                </table>
+                {% endif %}
+            </ul>
+        {% endfor %}
+    </div>
+{% endblock %}

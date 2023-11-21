@@ -1,0 +1,58 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}TimeTable{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">    <h1>TimeTable</h1>
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ time_table.id }}</td>
+            </tr>
+            <tr>
+                <th>Section</th>
+                <td>{{ time_table.section }}</td>
+            </tr>
+            <tr>
+                <th>Week</th>
+                <td>{{ time_table.week }}</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>{{ time_table.time ? time_table.time|date('H:i:a') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AssignedBy</th>
+                <td>
+                    <a class="btn btn-link" href="{{ path('app_teacher_show', {'id': time_table.assignedBy.id}) }}">{{  time_table.assignedBy.name }}</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td>{% for subject in time_table.subject %}
+                        <a class="btn btn-link" href="{{ path('app_subject_show', {'id': subject.id}) }}">{{  subject.name }}</a>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{% for class in time_table.class %}
+                        <a class="btn btn-link" href="{{ path('app_school_class_show', {'id': class.id}) }}">{{  class.name }}</a>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="{{ path('app_time_table_index') }}">back to list</a>
+
+    <a class="btn btn-warning" href="{{ path('app_time_table_edit', {'id': time_table.id}) }}">edit</a>
+
+    {{ include('time_table/_delete_form.html.twig') }}
+</div>
+</div>
+{% endblock %}

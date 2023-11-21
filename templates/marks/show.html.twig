@@ -1,0 +1,40 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Marks{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">
+    <h1>Marks</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ mark.id }}</td>
+            </tr>
+            <tr>
+                <th>Marks</th>
+                <td>{{ mark.marks }}</td>
+            </tr> <tr>
+                <th>Subject</th>
+                <td>{% for subject in mark.subject %}
+                        {{ subject.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Student</th>
+                <td>{% for student in mark.student %}
+                        {{ student.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a  class="btn btn-success"  href="{{ path('app_marks_index') }}">back to list</a>
+
+    <a  class="btn btn-warning"  href="{{ path('app_marks_edit', {'id': mark.id}) }}">edit</a>
+
+    {{ include('marks/_delete_form.html.twig') }}
+</div>
+{% endblock %}

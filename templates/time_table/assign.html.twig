@@ -1,0 +1,16 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}TimeTable{% endblock %}
+
+{% block content %}
+    <div class="col-sm-9">    <h1>Assign TimeTable</h1>
+
+{#        {{ form_row(form.assignedBy) }}#}
+{#        <button class="btn btn-success">{{ button_label|default('Save') }}</button>#}
+        <form action="{{ path('app_time_table_assign_update', {'id': time_table.id}) }}" method="post">
+            {{ form_row(form.assignedBy) }}
+            <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+        </form>
+        <a class="btn btn-success" href="{{ path('app_time_table_index') }}">back to list</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}New Teacher{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">    <h1>Create new Teacher</h1>
+
+    {{ include('teacher/_form.html.twig') }}
+
+    <a class="btn btn-success" href="{{ path('app_teacher_index') }}">back to list</a>
+</div>
+{% endblock %}

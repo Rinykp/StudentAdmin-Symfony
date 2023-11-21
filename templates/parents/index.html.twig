@@ -1,0 +1,44 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Parents index{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">
+    <h1>Parents index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Adress</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parent in parents %}
+            <tr>
+                <td>{{ parent.id }}</td>
+                <td>{{ parent.name }}</td>
+                <td>{{ parent.adress }}</td>
+                <td>{{ parent.email }}</td>
+                <td>{{ parent.phone }}</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_parents_show', {'id': parent.id}) }}">show</a>
+                    <a class="btn btn-warning"  href="{{ path('app_parents_edit', {'id': parent.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary"  href="{{ path('app_parents_new') }}">Create new</a>
+</div>
+{% endblock %}

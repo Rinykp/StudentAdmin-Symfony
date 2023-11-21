@@ -1,0 +1,34 @@
+"PROGRESS REPORT"
+Ramana
+Subjects,Marks
+English,78
+MAths,54
+"Social Studies",89
+"Total Marks",221
+
+Koushal
+Subjects,Marks
+English,78
+"Total Marks",78
+
+swami
+Subjects,Marks
+Malayalam,33
+MAths,59
+"Total Marks",92
+
+rini
+Subjects,Marks
+Science,43
+MAths,35
+"Total Marks",78
+
+anna
+Subjects,Marks
+"Total Marks",0
+
+Sankeeth
+Subjects,Marks
+Science,78
+"Total Marks",78
+

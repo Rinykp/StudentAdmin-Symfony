@@ -1,0 +1,47 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Marks index{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">
+    <h1>Marks index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Marks</th>
+                <th>Student</th>
+                <th>Subject</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mark in marks %}
+{#            {{ dump(mark.student.name) }}#}
+            <tr>
+                <td>{{ mark.id }}</td>
+                <td>{{ mark.marks }}</td>
+                <td>{% for student in mark.student %}
+                        {{ student.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}</td>
+                <td>{% for subject in mark.subject %}
+                        {{ subject.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}</td>
+                <td>
+                    <a  class="btn btn-success"  href="{{ path('app_marks_show', {'id': mark.id}) }}">show</a>
+                    <a  class="btn btn-warning"  href="{{ path('app_marks_edit', {'id': mark.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a  class="btn btn-primary"  href="{{ path('app_marks_new') }}">Create new</a>
+</div>
+{% endblock %}

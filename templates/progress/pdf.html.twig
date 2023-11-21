@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Progress</title>
+</head>
+<body>
+<div style="margin: 0 auto;display: block;width: 500px;">
+    {% for student in students %}
+        <h4 style="color:black;background-color: #5eb5e0; padding: 5px;text-align: center"><a style="font-size: 15px;" class="btn btn-link" href="{{ path('app_student_show', {'id': student.id}) }}">  {{ student.name }}</a></h4>
+        <ul>
+            {% if student.marks is not null %}
+                <table class="table" style="background-color:#f3f3f3;width: 100%" >
+                    <thead style="background-color: #fefcfc">
+                    <tr>
+                        <th>Subjects</th>
+                        <th>Mark</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% set rowTotal = 0 %}
+                    {% for mark in student.marks %}
+
+                        {% set rowTotal = rowTotal + mark.marks %}
+
+                        <tr>
+                            <td style="align-content: center">
+                                {% for subject in mark.subject %}
+                                    {{ subject.name }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{  mark.marks }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td><b>Total Marks</b></td>
+                        <td style="color: #B0413E"><b>{{ rowTotal }}<b></b></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            {% endif %}
+        </ul>
+    {% endfor %}</div>
+</body>
+</html>

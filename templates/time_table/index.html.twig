@@ -1,0 +1,61 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}TimeTable index{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">    <h1>TimeTable index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Section</th>
+                <th>Week</th>
+                <th>Time</th>
+                <th>Subject</th>
+                <th>Class</th>
+                <th>Teacher</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for time_table in time_tables %}
+            <tr>
+                <td>{{ time_table.id }}</td>
+                <td>{{ time_table.section }}</td>
+                <td>{{ time_table.week }}</td>
+                <td>{{ time_table.time ? time_table.time|date('H:i:a') : '' }}</td>
+                <td>{% for subject in time_table.subject %}
+                        <a class="btn btn-link" href="{{ path('app_subject_show', {'id': subject.id}) }}">{{  subject.name }}</a>
+                    {% endfor %}
+                </td>
+                <td>{% for class in time_table.class %}
+                        <a class="btn btn-link" href="{{ path('app_school_class_show', {'id': class.id}) }}">{{  class.name }}</a>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if(time_table.assignedBy) %}
+                    <a class="btn btn-link" href="{{ path('app_teacher_show', {'id': time_table.assignedBy.id}) }}">{{  time_table.assignedBy.name }}</a>
+                        <a class="" href="{{ path('app_time_table_assign', {'id': time_table.id}) }}"><span class="badge badge-danger"> Change teacher</span></a>
+                    {% else %}
+                        <a class="btn btn-info" href="{{ path('app_time_table_assign', {'id': time_table.id}) }}">Assign</a>
+
+                    {% endif %}
+
+                </td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_time_table_show', {'id': time_table.id}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_time_table_edit', {'id': time_table.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{{ path('app_time_table_new') }}">Create new</a>
+</div>
+{% endblock %}

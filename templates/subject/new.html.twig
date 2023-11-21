@@ -1,0 +1,13 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}New Subject{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">    <h1>Create new Subject</h1>
+
+    {{ include('subject/_form.html.twig') }}
+
+    <a class="btn btn-success" href="{{ path('app_subject_index') }}">back to list</a>
+</div>
+{% endblock %}

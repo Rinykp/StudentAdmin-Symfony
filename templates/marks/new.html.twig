@@ -1,0 +1,15 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}New Marks{% endblock %}
+
+
+{% block content %}
+
+<div class="col-sm-9">
+    <h1>Create new Marks</h1>
+
+    {{ include('marks/_form.html.twig') }}
+
+    <a  class="btn btn-success"  href="{{ path('app_marks_index') }}">back to list</a>
+</div>
+{% endblock %}

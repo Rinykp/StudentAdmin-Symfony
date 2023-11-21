@@ -1,0 +1,71 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Student{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">
+    <h1>Student</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ student.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ student.name }}</td>
+            </tr>
+            <tr>
+                <th>Dob</th>
+                <td>{{ student.dob ? student.dob|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ student.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ student.phone }}</td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{% for class in student.class %}
+                        {{ class.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    -
+                    {% for division in student.division %}
+                        {{ division.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}</td>
+            </tr>
+            <tr>
+                <th>Parent name</th>
+
+
+                <td> {% if student.parents is not null %}
+                        <a class="btn btn-link" href="{{ path('app_parents_show', {'id': student.parents.id}) }}">{{ student.parents.name }}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>
+                    {% if student.photo is not null %}
+                        <img class="img-thumbnail" src="{{ asset('uploads/photos/' ~ student.photo) }}" >
+                         <a href="{{ asset('uploads/photos/' ~ student.photo) }}">View image</a></td>
+                {% else %}
+                No Photo
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-success"  href="{{ path('app_student_index') }}">back to list</a>
+
+    <a class="btn btn-warning"  href="{{ path('app_student_edit', {'id': student.id}) }}">edit</a>
+
+    {{ include('student/_delete_form.html.twig') }}
+</div>
+{% endblock %}

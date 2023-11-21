@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Progress Report</title>
+</head>
+<body>
+<p>Hey {{ parentName }},</p>
+<p>
+    I am writing to update you on your student's progress.
+    I am very pleased to report that {{ studentName }} is doing well in class and is making good progress.
+    {{ studentName }} is working hard and has shown great effort in all subjects.
+    In particular, Maths has been a strength for {{ studentName }}. Keep up the good work!
+</p>
+<p>
+    Please check the Marks
+  <ul>
+    {% if marks is not null %}
+        <table class="table" style="background-color:#f3f3f3" >
+            <thead style="background-color: #fefcfc">
+            <tr>
+                <th>Subjects</th>
+                <th>Mark</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            {% set rowTotal = 0 %}
+            {% for mark in marks %}
+
+                {% set rowTotal = rowTotal + mark.marks %}
+
+                <tr>
+                    <td>
+                        {% for subject in mark.subject %}
+                            {{ subject.name }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{  mark.marks }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td><b>Total Marks</b></td>
+                <td style="color: #B0413E"><b>{{ rowTotal }}<b></b></td>
+            </tr>
+            </tfoot>
+        </table>
+    {% endif %}
+</ul>
+</p>
+<p>If you have any questions or concerns, please do not hesitate to contact me.
+    I will be happy to discuss your student's progress further with you. Thank you for your support.
+</p>
+<p>Sincerely,</p>
+<p>Teacher</p>
+</body>
+</html>

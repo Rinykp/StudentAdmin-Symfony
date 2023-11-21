@@ -1,0 +1,84 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Student index{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-9">
+    <h1>Student index</h1>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_start(form) }}
+            {{ form_row(form.csvFile) }}
+            <button class="btn btn-danger" style="margin-top: 10px;" type="submit"><span class="glyphicon glyphicon-upload"></span> Upload csv</button>
+            <a style="margin-top: 10px;" class="btn btn-info btn-md"href="{{ path('download_sample_csv') }}"><span class="glyphicon glyphicon-download-alt"></span> Download Sample Csv File</a></a>
+
+            {{ form_end(form) }}
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Dob</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Class</th>
+                <th>Parent Name</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+{#        {{ dump(students) }}#}
+        {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.dob ? student.dob|date('Y-m-d') : '' }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.phone }}</td>
+                <td>
+                    {% for class in student.class %}
+                        {{ class.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    -
+                    {% for division in student.division %}
+                        {{ division.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if student.parents is not null %}
+                        <a class="btn btn-link" href="{{ path('app_parents_show', {'id': student.parents.id}) }}">{{ student.parents.name }}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if student.photo is not null %}
+                    <img class="img-thumbnail" style="height: 70px;width: 70px" src="{{ asset('uploads/photos/' ~ student.photo) }}" >
+                    {% else %}
+
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_student_show', {'id': student.id}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_student_edit', {'id': student.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_student_new') }}">Create new</a>
+</div>
+{% endblock %}
